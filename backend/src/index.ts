@@ -5,6 +5,7 @@ import cors from 'cors';
 // Rutas Importadas
 import indexRoutes from './routes/indexRoutes';
 import usuariosRoutes from './routes/usuariosRoutes';
+import mascotaRoutes from './routes/mascotaRoutes';
 
 
 class Server {
@@ -28,6 +29,7 @@ class Server {
     routes():void {
         this.app.use('/', indexRoutes);
         this.app.use('/usuario', usuariosRoutes);
+        this.app.use('/mascota', mascotaRoutes);
     }
 
     // Iniciar Servidor
