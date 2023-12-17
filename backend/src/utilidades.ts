@@ -6,13 +6,13 @@ export  function crearTrasporte(email: string){
         host:'smtp.gmail.com',
         port: 587,
         auth:{
-            user: "ang.geovany@gmail.com",
-            pass: "dgrk toyf iyxt keyk",
+            user: "",
+            pass: "",
         },
     }
     const codigo = generarCodigo();
     const mensaje = {
-        from: "Huellita Feliz ang.geovany@gmail.com",
+        from: "Huellita Feliz \"user\"",
         to: email,
         subject: "codigo de inicio de sesion",
         text: "Este es tu codigo  para iniciar sesion:"+ codigo ,
