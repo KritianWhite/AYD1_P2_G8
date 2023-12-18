@@ -1,0 +1,57 @@
+------------------------------------------------
+GET  
+/usuario/
+Devuelve la lista de todos los usuarios
+------------------------------------------------
+POST
+usuario/login/:email
+Verifica que sea el mismo usuario y contraseña si si lo es retorna todo los valores del usuario. Tanbien verifica lo de verificacion de correo antes 
+body:
+{
+    "password":"contraseña123"
+}
+------------------------------------------------
+POST
+/usuario/registrar
+Registrar un ususario o cuidador. le crea el token y le envia correo
+body
+{
+    "nombre": "Juan",
+    "apellido": "Perez",
+    "telefono": 123456789,
+    "email": "juan@example.com",
+    "passwordd": "secreto123",
+    "fecha_nacimiento": "2000-01-01",
+    "rol": "cliente", //cliente o cuidador
+    "verificacion": "0"
+  }
+------------------------------------------------
+GET
+/usuario/verperfil/:email
+retorna toda la informacion del usuario con ese correo
+------------------------------------------------
+POST
+/usuario/cambiarpass/:email
+Cambia la contraseña nomas
+body:
+{
+    "password": "nuevacontraseñA3"
+}
+------------------------------------------------
+POST 
+/usuario/actulizarusuario/:email
+actulizar datos del usuario 
+body:
+{
+    "nombre": "nnombre",
+    "apellido": "napellido",
+    "telefono": 123456789,
+    "email": "aaaaaaaaaaaaa@email.com",
+    "passwordd": "secreto123",
+    "fecha_nacimiento": "2000-01-01"
+  }
+------------------------------------------------
+------------------------------------------------
+------------------------------------------------
+------------------------------------------------
+------------------------------------------------
