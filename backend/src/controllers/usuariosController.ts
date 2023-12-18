@@ -23,21 +23,43 @@ class UsuariosController{
     }
 
     // Post - Login
+    public async Codigo(req: Request, res: Response): Promise<void> {
+        try {
+            const email  = corregirFormato(req.params.email);
+            const { password } = req.body;
+            // Realiza la consulta 
+            pool.query(
+                'SELECT * FROM CLIENTE WHERE email = ? AND token = ? UNION SELECT * FROM CUIDADOR WHERE email = ? AND token = ?',
+                [email, password,email,password], (error, results) => {
+                // Verifica si hay resultados en el array devuelto
+                if (results && results.length > 0) {
+                    pool.query('UPDATE CLIENTE SET verificacion = \'1\' WHERE email = ? LIMIT 1',[email]);
+                    pool.query('UPDATE CUIDADOR SET verificacion = \'1\' WHERE email = ? LIMIT 1',[email]);
+                    res.json(results[0]);
+                } else {
+                    res.status(401).json({ message: 'Usuario o codigo Incorrectos' }); 
+                }
+            });
+        } catch (error) {
+            //console.error('Error en el proceso de inicio de sesión:', error);
+            res.status(500).json({ message: 'Error en el proceso de inicio de sesión' });
+        }
+    }
+
+    // Post - Login
     public async Login(req: Request, res: Response): Promise<void> {
         try {
             const email  = corregirFormato(req.params.email);
             const { password } = req.body;
             // Realiza la consulta 
             pool.query(
-                'SELECT * FROM CLIENTE WHERE email = ? AND ( (verificacion = \'0\' AND token = ?) OR (verificacion = \'1\' AND passwordd = ?) ) UNION SELECT * FROM CUIDADOR WHERE email = ? AND ((verificacion = \'0\' AND token = ?) OR (verificacion = \'1\' AND passwordd = ?))',
-                [email, password,password,email,password,password], (error, results) => {
+                'SELECT * FROM CLIENTE WHERE email = ? AND passwordd = ? UNION SELECT * FROM CUIDADOR WHERE email = ? AND passwordd = ?;',
+                [email, password,email,password], (error, results) => {
                 // Verifica si hay resultados en el array devuelto
                 if (results && results.length > 0) {
-                    pool.query('UPDATE CLIENTE SET verificacion = \'1\' WHERE email = ? LIMIT 1');
-                    pool.query('UPDATE CUIDADOR SET verificacion = \'1\' WHERE email = ? LIMIT 1');
                     res.json(results[0]);
                 } else {
-                    res.status(401).json({ message: 'Usuario o Contraseña Incorrectos' }); // Cambiado a 401 Unauthorized
+                    res.status(401).json({ message: 'Usuario o Contraseña Incorrectos' }); 
                 }
             });
         } catch (error) {

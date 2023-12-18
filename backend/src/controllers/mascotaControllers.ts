@@ -47,7 +47,6 @@ class MascotaController{
                 // Verifica si hay resultados
                 if (results && results.length > 0) {
                     req.body.id_cliente=results[0].id_cliente;
-                    console.log(req.body)
                     pool.query('INSERT INTO MASCOTA SET ?', [req.body]);
                     res.json({ message: 'Mascota registrada' });
                 }else{
