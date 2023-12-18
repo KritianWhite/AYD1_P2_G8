@@ -5,10 +5,45 @@ Devuelve la lista de todos los usuarios
 ------------------------------------------------
 POST
 usuario/login/:email
-Verifica que sea el mismo usuario y contraseña si si lo es retorna todo los valores del usuario. Tanbien verifica lo de verificacion de correo antes 
+Verifica que sea el mismo usuario y contraseña si si lo es retorna todo los valores del usuario. 
 body:
 {
     "password":"contraseña123"
+}
+retorna:
+{
+  "id_cliente": 2,
+  "nombre": "nnombre",
+  "apellido": "napellido",
+  "telefono": 123456789,
+  "email": "aaaaaaaaaaaaa@email.com",
+  "passwordd": "secreto123",
+  "fecha_nacimiento": "2000-01-01T06:00:00.000Z",
+  "rol": "cuidador",
+  "verificacion": "0",
+  "token": "qwerty"
+}
+------------------------------------------------
+------------------------------------------------
+POST
+usuario/codigo/:email
+Verifica el codigo sea el que se haya enviado al correo
+body:
+{
+    "password":"contraseña123"
+}
+retorna:
+{
+  "id_cliente": 2,
+  "nombre": "nnombre",
+  "apellido": "napellido",
+  "telefono": 123456789,
+  "email": "aaaaaaaaaaaaa@email.com",
+  "passwordd": "secreto123",
+  "fecha_nacimiento": "2000-01-01T06:00:00.000Z",
+  "rol": "cuidador",
+  "verificacion": "0",
+  "token": "qwerty"
 }
 ------------------------------------------------
 POST
@@ -51,7 +86,33 @@ body:
     "fecha_nacimiento": "2000-01-01"
   }
 ------------------------------------------------
+GET
+/mascota/
+retorna todas las mascotas registradas
 ------------------------------------------------
+GET
+/mascota/verperfil/:nombre
+retorna la info de una mascota
 ------------------------------------------------
+POST
+/mascota/registrar/:email
+registra una mascota
+body:
+{
+  "nombre": "Nombre de la Mascota",
+  "edad": 2,
+  "especie": "Gato",
+  "raza": "Raza de la Mascota",
+  "comportamiento": "Comportamiento de la Mascota",
+  "contacto_veterinario": 123456789,
+  "comentario": "Comentario sobre la Mascota"
+}            
 ------------------------------------------------
+POST
+/mascota/hospedar/:email/:nombre           ///email del cuidador
+hospedar una mascota
+body:
+{
+  "fecha_devolucion": "2020-03-10"
+}
 ------------------------------------------------
