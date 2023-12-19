@@ -67,7 +67,6 @@ class MascotaController{
             // Realiza la consulta 
             pool.query('SELECT id_mascota FROM MASCOTA WHERE nombre = ?',[nombre], (error, mascota) => {
                 pool.query('SELECT id_cuidador FROM CUIDADOR WHERE email = ?',[email], (error, cuidador) => {
-                    console.log(mascota[0])
                     if (mascota && cuidador ) {
                         req.body.id_mascota=mascota[0].id_mascota
                         req.body.id_cuidador=cuidador[0].id_cuidador
@@ -78,9 +77,6 @@ class MascotaController{
                     }
                 });
             });
-            
-           
-           
         } catch (error) {
             res.status(500).json({ message: 'Error al realizar el hospedaje' });        
         }

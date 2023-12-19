@@ -1,18 +1,21 @@
 const nodemailer = require('nodemailer');
-import { customAlphabet } from 'nanoid';
+import path from 'path';
+import dotenv from 'dotenv';
+const envPath = path.resolve(__dirname, '..', '.env');
+dotenv.config({ path: envPath });
 
 export  function crearTrasporte(email: string){
     const config ={
         host:'smtp.gmail.com',
         port: 587,
         auth:{
-            user: "",
-            pass: "",
+            user: process.env.USERMAIL,
+            pass: process.env.PASSEMAIL,
         },
     }
     const codigo = generarCodigo();
     const mensaje = {
-        from: "Huellita Feliz \"user\"",
+        from: "Huellita Feliz "+process.env.USERMAIL,
         to: email,
         subject: "codigo de inicio de sesion",
         text: "Este es tu codigo  para iniciar sesion:"+ codigo ,
