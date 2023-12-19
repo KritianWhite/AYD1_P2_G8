@@ -35,6 +35,7 @@ const Login = () => {
       console.log('Error:',err);
   })
   .then(response => {
+    console.log(password);
       console.log(response);
       if (response.message == "Usuario o Contraseña Incorrectos"){
         Swal.fire({
@@ -43,6 +44,7 @@ const Login = () => {
           text: "Usuario o Contraseña Incorrectos",
         });
       }else{
+        console.log(response);
         if (response.administrador == 1){
           localStorage.setItem('usuario', JSON.stringify(response.email));
           window.location.href = "http://localhost:3000/AdministracionLibros";
