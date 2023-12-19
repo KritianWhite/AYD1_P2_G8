@@ -13,11 +13,28 @@ class UsuariosController{
                     console.log(results)
                     res.json(results);
                 } else {
-                    res.json({message: "No se encontraron usuarios"}); // Enviar un JSON vacío 
+                    res.json({message: "No se encontraron usuarios"}); 
                 }
             });
         } catch (error) {
            // console.error('Error al obtener usuarios:', error);
+            res.status(500).json({ message: 'Error al obtener usuarios' });
+        }
+    }
+
+    //GET - el email
+    public async Verificacion(req: Request, res: Response): Promise<void> {
+        try {
+            const email  = corregirFormato(req.params.email);
+            pool.query('SELECT verificacion FROM CLIENTE WHERE email = ? UNION SELECT verificacion FROM CUIDADOR WHERE email = ?',[email,email], (error, results) => {
+                // Verifica si hay resultados
+                if (results && results.length > 0) {
+                    res.json(results[0]);
+                } else {
+                    res.json({message: "Error no se encontro el usuario"});
+                }
+            });
+        } catch (error) {
             res.status(500).json({ message: 'Error al obtener usuarios' });
         }
     }
@@ -144,6 +161,40 @@ class UsuariosController{
             res.status(500).json({ message: 'Error al actualizar usuario' });
         }
     }
+
+        // GET - retornar todas las mascotas del cliente
+    public async MacotasCliente(req: Request, res: Response): Promise<void>{
+        try {
+            const email  = corregirFormato(req.params.email);
+            // Realiza la consulta 
+            pool.query('SELECT M.*, C.nombre AS nombre_cliente FROM proyecto2.CLIENTE C JOIN proyecto2.MASCOTA M ON C.id_cliente = M.id_cliente WHERE C.email = ? ',[email], (error, results) => {
+                if (results && results.length>0 ) {
+                    res.json(results);
+                }else{
+                    res.status(500).json({ message: 'El cliente no tiene ninguna mascota hospedada' });            
+                }
+            });
+        } catch (error) {
+            res.status(500).json({ message: 'Error al realizar el hospedaje' });        
+        }
+    }
+
+        // GET - retornar todas las mascotas que tiene el cuidador
+        public async MascotaCuidador(req: Request, res: Response): Promise<void>{
+            try {
+                const email  = corregirFormato(req.params.email);
+                // Realiza la consulta 
+                pool.query('SELECT M.*, Cu.nombre AS nombre_cuidador FROM proyecto2.CUIDADOR Cu JOIN proyecto2.ATENCION A ON Cu.id_cuidador = A.id_cuidador JOIN proyecto2.MASCOTA M ON A.id_mascota = M.id_mascota WHERE Cu.email = ?',[email], (error, results) => {
+                    if (results && results.length>0 ) {
+                        res.json(results);
+                    }else{
+                        res.status(500).json({ message: 'El cuidador no tiene ninguna mascota atendiendo' });            
+                    }
+                });
+            } catch (error) {
+                res.status(500).json({ message: 'Error al realizar el hospedaje' });        
+            }
+        }
 
 }
 
