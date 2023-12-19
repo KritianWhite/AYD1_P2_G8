@@ -1,0 +1,40 @@
+
+.container-libros{
+    margin-bottom: 20px;
+    width: 90%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    font-size: 18px;
+    margin-left: 5%;
+}
+.tabla-libros-administrador{
+    margin-top: 5rem;
+    margin-bottom: 20px;
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    font-size: 18px;
+}
+.tabla-libros-administrador h1 {
+    text-align: center; 
+}
+
+.btn-add-book{
+    left: 0;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 150px;
+    height: 50px;
+    background-color: #597bec;
+    color: white;
+    font-size: 20px;
+    border-radius: 5px;
+    border: solid 1px;
+    cursor: pointer;
+    align-items: center;
+}
+
+.table-wrap {
+    overflow: auto;
+    max-height: 70vh; 
+  }
