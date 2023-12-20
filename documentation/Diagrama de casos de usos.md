@@ -6,4 +6,4 @@ ___
 ## **PROYECTO 2**
 ___
 ## **DIGRAMA DE CASOS DE USOS **
-![caso_uso](./Casos_usos.png )
+![caso_uso](./caso_uso.png )
