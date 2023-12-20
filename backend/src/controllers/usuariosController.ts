@@ -184,7 +184,7 @@ class UsuariosController{
             try {
                 const email  = corregirFormato(req.params.email);
                 // Realiza la consulta 
-                pool.query('SELECT M.*, Cu.nombre AS nombre_cuidador FROM proyecto2.CUIDADOR Cu JOIN proyecto2.ATENCION A ON Cu.id_cuidador = A.id_cuidador JOIN proyecto2.MASCOTA M ON A.id_mascota = M.id_mascota WHERE Cu.email = ?',[email], (error, results) => {
+                pool.query('SELECT M.*, Cu.nombre AS nombre_cuidador, A.estado FROM CUIDADOR Cu JOIN ATENCION A ON Cu.id_cuidador = A.id_cuidador JOIN proyecto2.MASCOTA M ON A.id_mascota = M.id_mascota WHERE Cu.email = ?',[email], (error, results) => {
                     if (results && results.length>0 ) {
                         res.json(results);
                     }else{
@@ -193,6 +193,23 @@ class UsuariosController{
                 });
             } catch (error) {
                 res.status(500).json({ message: 'Error al realizar el hospedaje' });        
+            }
+        }
+
+         // GET - retornar todas las mascotas que tiene el cuidador
+         public async CantidadMascotasCuidador(req: Request, res: Response): Promise<void>{
+            try {
+                const email  = corregirFormato(req.params.email);
+                // Realiza la consulta 
+                pool.query('SELECT COUNT(M.id_mascota) AS cantidad_mascotas FROM CUIDADOR Cu JOIN ATENCION A ON Cu.id_cuidador = A.id_cuidador JOIN proyecto2.MASCOTA M ON A.id_mascota = M.id_mascota WHERE Cu.email = ?',[email], (error, results) => {
+                    if (results.length>0 ) {
+                        res.json(results[0]);
+                    }else{
+                        res.json({ cantidad_mascotas: 0 });            
+                    }
+                });
+            } catch (error) {
+                res.status(500).json({ message: 'Error al consultar la cantidad de mascotas del cuidador' });        
             }
         }
 
