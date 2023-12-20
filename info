@@ -206,3 +206,12 @@ body:
 {
   
 }
+-------------------------------------------------
+GET
+/usuario/cant_mascotas_cuidador/mariacuidador@email.com
+/usuario/cant_mascotas_cuidador/:emai
+Cantidad de mascotas que tiene el cuidador
+ejemplo de retorno 
+{
+  "cantidad_mascotas": 1
+}

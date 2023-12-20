@@ -20,6 +20,7 @@ class UsuariosRoutes{
         this.router.post('/actulizarusuario/:email', usuariosController.ModificarDatos); // cambiar contraseña
         this.router.get('/cliente_mascotas/:email', usuariosController.MacotasCliente); 
         this.router.get('/cuidador_mascota/:email', usuariosController.MascotaCuidador); 
+        this.router.get('/cant_mascotas_cuidador/:email', usuariosController.CantidadMascotasCuidador); 
 
     }
 }

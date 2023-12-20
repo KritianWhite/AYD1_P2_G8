@@ -13,8 +13,6 @@ export  function crearTrasporte(email: string){
             pass: process.env.PASSEMAIL,
         },
     }
-    console.log(process.env.USERMAIL)
-    console.log(process.env.PASSEMAIL)
     const codigo = generarCodigo();
     const mensaje = {
         from: "Huellita Feliz "+process.env.USERMAIL,
