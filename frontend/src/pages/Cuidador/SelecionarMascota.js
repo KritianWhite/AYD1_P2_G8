@@ -8,6 +8,7 @@ import { set } from "date-fns";
 
 export default function SeleccionarMascota() {
   const [mascotas, setMascotas] = useState([]);
+  const [cantidadmascotas, setCantidadMascotas] = useState(0);
 
   const getLibros = async () => {
     try {
@@ -24,6 +25,8 @@ export default function SeleccionarMascota() {
 
   const handleAtender = async (idmascota) => {
     //console.log("Atender mascota con ID:", idmascota);
+    if (cantidadmascotas <2) {
+
     const user = localStorage.getItem("correo").replace(/"/g, "");
     try {
       const response = await fetch(`http://localhost:4000/mascota/atender/${user}/${idmascota}`, {
@@ -33,11 +36,32 @@ export default function SeleccionarMascota() {
         },
         body: null,
       });
+      
       const data = await response.json();
-      //console.log("Respuesta de atender:", data);
+      if (response.ok) {
+        Swal.fire({
+          icon: "success",
+          title: "¡Mascota atendida!",
+          text: "La mascota ha sido ingresada a atención.",
+        });
+      } else {
+        // Si la respuesta no fue exitosa, mostrar un mensaje de error
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Hubo un error al atender la mascota. Por favor, inténtalo de nuevo.",
+        });
+      }
     } catch (err) {
       console.log("Error:", err);
     }
+  }else{
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "No puedes atender más de 2 mascotas.",
+    });
+  };
   };
 
   useEffect(() => {
@@ -45,7 +69,24 @@ export default function SeleccionarMascota() {
     if (user == null) {
       window.location.href = "http://localhost:3000/";
     } else {
+      const user = localStorage.getItem("correo").replace(/"/g, "");
+      fetch(`http://localhost:4000/usuario/cant_mascotas_cuidador/${user}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .catch((err) => {
+          console.log("Error:", err);
+        })
+        .then((response) => {
+          console.log("Respuesta de cantidad de mascotas:", response);
+         setCantidadMascotas(response.cantidad_mascotas);
+        });
       getLibros();
+
+
     }
   }, []);
 
