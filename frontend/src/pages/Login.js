@@ -134,6 +134,11 @@ const Login = () => {
     }
   };
 
+  const handleRegister = (event) => {
+    event.preventDefault();
+    window.location.href = "http://localhost:3000/RegisterForm"
+  }
+
 
   useEffect(() => {
     localStorage.clear();
@@ -154,6 +159,7 @@ const Login = () => {
               placeholder="Ingrese su correo"
             />
             <button type="submit">Siguiente</button>
+            <p>¿No tienes una cuenta? <button onClick={handleRegister}>Registrate</button></p>
           </>
         )}
         {step === 0 && (
