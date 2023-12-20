@@ -91,7 +91,7 @@ class MascotaController{
                     req.body.id_mascota=id_mascota
                     req.body.id_cuidador=cuidador[0].id_cuidador
                     req.body.estado="ingresado"
-                    pool.query('INSERT INTO ATENDER SET ?',[req.body]);
+                    pool.query('INSERT INTO ATENCION SET ?',[req.body]);
                 }else{
                     res.status(500).json({ message: 'Error al realizar la atencion' });            
                 }
