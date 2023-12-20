@@ -6,8 +6,8 @@ import Registro from "./pages/Registro.js";
 import PrincipalCuidador from "./pages/Cuidador/PrincipalCuidador.js";
 import SeleccionarMascota from "./pages/Cuidador/SelecionarMascota.js";
 import AtenderMascota from "./pages/Cuidador/AtenderMascota.js";
-import Verperfil from "./pages/cliente/VerPerfil.jsx";
-import MisMascotas from "./pages/cliente/MisMascotas.jsx";
+import Verperfil from "./pages/Cliente/VerPerfil.jsx";
+import MisMascotas from "./pages/Cliente/MisMascotas.jsx";
 
 
 import './App.css';

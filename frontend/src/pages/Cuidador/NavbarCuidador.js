@@ -43,7 +43,7 @@ export default function NavbarCuidador() {
                   <a
                     class="nav-link active"
                     aria-current="page"
-                    href="http://localhost:3000/inicio"
+                    href="http://localhost:3000/seleccionarmascota"
                   >
                     Mascotas hospedadas
                   </a>

@@ -95,6 +95,9 @@ const Login = () => {
           if (response.rol == "cliente"){
             localStorage.setItem("correo", response.email);
             window.location.href = "/verperfil";
+          } else if (response.rol == "cuidador"){
+            localStorage.setItem("correo", response.email);
+            window.location.href = "/principalcuidador";
           }
         });
 
