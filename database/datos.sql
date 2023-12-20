@@ -45,19 +45,34 @@ VALUES
 ;
 
 -- HOSPEDAJE
-INSERT INTO proyecto2.ATENCION (id_mascota, id_cuidador, fecha_devolucion, estado)
+INSERT INTO proyecto2.HOSPEDAR (fecha_devolucion, id_mascota)
 VALUES 
-    (2, 3, '2023-03-01', 'comiendo'),
-    (4, 5, '2023-03-02', 'paseando'),
-    (6, 7, '2023-03-03', 'bañado'),
-    (8, 9, '2023-03-04', 'durmiendo'),
-    (10, 1, '2023-03-05', 'jugando'),
-    (1, 2, '2023-03-06', 'listo para recoger'),
-    (3, 4, '2023-03-07', 'comiendo'),
-    (5, 6, '2023-03-08', 'paseando'),
-    (7, 8, '2023-03-09', 'bañado'),
-    (9, 10, '2023-03-10', 'durmiendo')
+    ('2023-03-01', 1),
+    ('2023-03-02', 4),
+    ('2023-03-03', 6),
+    ('2023-03-04', 8),
+    ('2023-03-05', 10),
+    ('2023-03-06', 1),
+    ('2023-03-07', 3),
+    ('2023-03-08', 5),
+    ('2023-03-09', 7),
+    ('2023-03-10', 9)
 ;
+
+-- ATENCION
+INSERT INTO proyecto2.ATENCION (id_mascota, id_cuidador, estado)
+VALUES 
+    (2, 3, 'comiendo'),
+    (4, 5, 'paseando'),
+    (6, 7, 'bañado'),
+    (8, 9, 'durmiendo'),
+    (10, 1, 'jugando'),
+    (1, 2, 'listo para recoger'),
+    (3, 4, 'comiendo'),
+    (5, 6, 'paseando'),
+    (7, 8, 'bañado'),
+    (9, 10, 'durmiendo');
+
 
 -- COMENTARIO
 INSERT INTO proyecto2.COMENTARIO (id_cliente, id_cuidador, comentario)
