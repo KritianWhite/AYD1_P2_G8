@@ -175,3 +175,34 @@ ejemplo de retorno:
 {
   "verificacion": "0"
 }
+------------------------------------------------
+GET
+/mascota/ver_estado/carloscuidador@email.com/3
+/mascota/ver_estado/:email/:id_mascota
+retorna el estado 
+ejemplo de retorno:
+{
+  "estado": "estado"
+}
+------------------------------------------------
+Post
+/mascota/actulizar_estado/carloscuidador@email.com/3
+/mascota/actulizar_estado/:email/:id_mascota
+actulziar el estado 
+body:
+{
+  "estado": "nuevo estaod"
+}
+------------------------------------------------
+post
+mascota/hospedar/:email/:id_mascota
+body:
+{
+  "fecha_devolucion":"2023-03-01"
+}
+post
+mascota/atender/:email/:id_mascota
+body:
+{
+  
+}

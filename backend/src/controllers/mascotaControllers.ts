@@ -7,7 +7,7 @@ class MascotaController{
     public async ListaMascota(req: Request, res: Response): Promise<void> {
         try {
             // Realiza la consulta 
-            pool.query('SELECT * FROM MASCOTA', (error, results) => {
+            pool.query('SELECT * FROM HOSPEDAR', (error, results) => {
                 // Verifica si hay resultados
                 if (results && results.length > 0) {
                     res.json(results);
@@ -63,24 +63,95 @@ class MascotaController{
     public async HospedarMascota(req: Request, res: Response): Promise<void>{
         try {
             const email  = corregirFormato(req.params.email);
-            const nombre  = corregirFormato(req.params.nombre);
+            const id_mascota  = corregirFormato(req.params.id_mascota);
             // Realiza la consulta 
-            pool.query('SELECT id_mascota FROM MASCOTA WHERE nombre = ?',[nombre], (error, mascota) => {
-                pool.query('SELECT id_cuidador FROM CUIDADOR WHERE email = ?',[email], (error, cuidador) => {
-                    if (mascota && cuidador ) {
-                        req.body.id_mascota=mascota[0].id_mascota
-                        req.body.id_cuidador=cuidador[0].id_cuidador
-                        req.body.estado="recien ingresado"
-                        pool.query('INSERT INTO ATENCION SET ?',[req.body]);
-                    }else{
-                        res.status(500).json({ message: 'Error al realizar el hospedaje' });            
-                    }
-                });
+            pool.query('SELECT id_cuidador FROM CUIDADOR WHERE email = ?',[email], (error, cuidador) => {
+                if (cuidador ) {
+                    req.body.id_mascota=id_mascota
+                    req.body.id_cuidador=cuidador[0].id_cuidador
+                    req.body.estado="ingresado"
+                    pool.query('INSERT INTO HOSPEDAR SET ?',[req.body]);
+                }else{
+                    res.status(500).json({ message: 'Error al realizar el hospedaje' });            
+                }
             });
         } catch (error) {
             res.status(500).json({ message: 'Error al realizar el hospedaje' });        
         }
     }
+
+    // POST - atender mascota
+    public async AtenderMascota(req: Request, res: Response): Promise<void>{
+        try {
+            const email  = corregirFormato(req.params.email);
+            const id_mascota  = corregirFormato(req.params.id_mascota);
+            // Realiza la consulta 
+            pool.query('SELECT id_cuidador FROM CUIDADOR WHERE email = ?',[email], (error, cuidador) => {
+                if (cuidador ) {
+                    req.body.id_mascota=id_mascota
+                    req.body.id_cuidador=cuidador[0].id_cuidador
+                    req.body.estado="ingresado"
+                    pool.query('INSERT INTO ATENDER SET ?',[req.body]);
+                }else{
+                    res.status(500).json({ message: 'Error al realizar la atencion' });            
+                }
+            });
+        } catch (error) {
+            res.status(500).json({ message: 'Error al realizar el hospedaje' });        
+        }
+    }
+
+       // GET - ver estado de la mascota atendida
+       public async VerEstadoMascota(req: Request, res: Response): Promise<void>{
+        try {
+            const email  = corregirFormato(req.params.email);
+            const id_mascota  = corregirFormato(req.params.id_mascota);
+            // Realiza la consulta 
+            pool.query('Select estado from atencion where id_mascota = ? and id_cuidador = (select id_cuidador from cuidador where email = ? )',[id_mascota,email], (error, results) => {
+                if (results &&results.length>0 ) {
+                    res.json(results[0])
+                }else{
+                    res.status(500).json({ message: 'No se encontro la mascota para observar el estado' });            
+                }
+            });
+        } catch (error) {
+            res.status(500).json({ message: 'No se encontro la mascota para observar el estado' });        
+        }
+    }
+
+    // post - actuliza el estado de la mascota atendida
+    public async ActulizarEstado(req: Request, res: Response): Promise<void>{
+        try {
+            const email  = corregirFormato(req.params.email);
+            const id_mascota  = corregirFormato(req.params.id_mascota);
+            // Realiza la consulta 
+            pool.query('UPDATE ATENCION SET estado = ? WHERE id_mascota = ? and id_cuidador = (select id_cuidador from CUIDADOR where email = ? )',[req.body.estado,id_mascota,email], (error, results) => {
+                res.json({ message: 'Se actulizo el estado' })
+            });
+        } catch (error) {
+            res.status(500).json({ message: 'No se encontro la mascota para actulizar el estado' });        
+        }
+    }
+
+    //GET - Devuelve la lista de todas las mascotas que esta atendiendo el cuidador
+    public async ListaMascotaCuidador(req: Request, res: Response): Promise<void> {
+        try {
+            const email  = corregirFormato(req.params.email);
+            pool.query('SELECT CUIDADOR.NOMBRE AS NombreCuidador, MASCOTA.*, ATENCION.fecha_devolucion, ATENCION.estado FROM ATENCION  JOIN CUIDADOR ON ATENCION.id_cuidador = CUIDADOR.id_cuidador JOIN MASCOTA ON ATENCION.id_mascota = MASCOTA.id_mascota WHERE CUIDADOR.email = ?',[email], (error, results) => {
+                // Verifica si hay resultados
+                if (results && results.length > 0) {
+                    res.json(results);
+                } else {
+                    res.json({message: "No se encontraron mascotas"}); // Enviar un JSON vacío 
+                }
+            });
+        } catch (error) {
+           // console.error('Error al obtener usuarios:', error);
+            res.status(500).json({ message: 'Error al obtener las mascotas' });
+        }
+    }
+    
+
 
 }
 
