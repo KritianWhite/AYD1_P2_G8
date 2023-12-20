@@ -73,9 +73,16 @@ CREATE TABLE IF NOT EXISTS proyecto2.MASCOTA (
     FOREIGN KEY (id_cliente) REFERENCES proyecto2.CLIENTE (id_cliente)
 );
 
+CREATE TABLE IF NOT EXISTS proyecto2.HOSPEDAR(
+    id_hospedaje INTEGER AUTO_INCREMENT,
+    fecha_devolucion DATE NOT NULL,
+    id_mascota INTEGER NOT NULL,
+    PRIMARY KEY (id_hospedaje),
+    FOREIGN KEY (id_mascota) REFERENCES proyecto2.MASCOTA (id_mascota)
+);
+
 CREATE TABLE IF NOT EXISTS proyecto2.ATENCION (
     id_atencion INTEGER NOT NULL AUTO_INCREMENT,
-    fecha_devolucion DATE NOT NULL,
     estado VARCHAR(100) NOT NULL,
     id_mascota INTEGER NOT NULL,
     id_cuidador INTEGER NOT NULL,
