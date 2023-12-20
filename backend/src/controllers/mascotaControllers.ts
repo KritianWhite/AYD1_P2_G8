@@ -7,7 +7,7 @@ class MascotaController{
     public async ListaMascota(req: Request, res: Response): Promise<void> {
         try {
             // Realiza la consulta 
-            pool.query('SELECT * FROM HOSPEDAR', (error, results) => {
+            pool.query('SELECT * FROM HOSPEDAR JOIN MASCOTA ON HOSPEDAR.id_mascota = MASCOTA.id_mascota;', (error, results) => {
                 // Verifica si hay resultados
                 if (results && results.length > 0) {
                     res.json(results);
