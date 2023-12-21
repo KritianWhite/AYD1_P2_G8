@@ -1,0 +1,217 @@
+------------------------------------------------
+GET  
+/usuario/
+Devuelve la lista de todos los usuarios
+------------------------------------------------
+POST
+usuario/login/:email
+Verifica que sea el mismo usuario y contraseña si si lo es retorna todo los valores del usuario. 
+body:
+{
+    "password":"contraseña123"
+}
+retorna:
+{
+  "id_cliente": 2,
+  "nombre": "nnombre",
+  "apellido": "napellido",
+  "telefono": 123456789,
+  "email": "aaaaaaaaaaaaa@email.com",
+  "passwordd": "secreto123",
+  "fecha_nacimiento": "2000-01-01T06:00:00.000Z",
+  "rol": "cuidador",
+  "verificacion": "0",
+  "token": "qwerty"
+}
+------------------------------------------------
+------------------------------------------------
+POST
+usuario/codigo/:email
+Verifica el codigo sea el que se haya enviado al correo
+body:
+{
+    "password":"contraseña123"
+}
+retorna:
+{
+  "id_cliente": 2,
+  "nombre": "nnombre",
+  "apellido": "napellido",
+  "telefono": 123456789,
+  "email": "aaaaaaaaaaaaa@email.com",
+  "passwordd": "secreto123",
+  "fecha_nacimiento": "2000-01-01T06:00:00.000Z",
+  "rol": "cuidador",
+  "verificacion": "0",
+  "token": "qwerty"
+}
+------------------------------------------------
+POST
+/usuario/registrar
+Registrar un ususario o cuidador. le crea el token y le envia correo
+body
+{
+    "nombre": "Juan",
+    "apellido": "Perez",
+    "telefono": 123456789,
+    "email": "juan@example.com",
+    "passwordd": "secreto123",
+    "fecha_nacimiento": "2000-01-01",
+    "rol": "cliente", //cliente o cuidador
+    "verificacion": "0"
+  }
+------------------------------------------------
+GET
+/usuario/verperfil/:email
+retorna toda la informacion del usuario con ese correo
+------------------------------------------------
+POST
+/usuario/cambiarpass/:email
+Cambia la contraseña nomas
+body:
+{
+    "password": "nuevacontraseñA3"
+}
+------------------------------------------------
+POST 
+/usuario/actulizarusuario/:email
+actulizar datos del usuario 
+body:
+{
+    "nombre": "nnombre",
+    "apellido": "napellido",
+    "telefono": 123456789,
+    "email": "aaaaaaaaaaaaa@email.com",
+    "passwordd": "secreto123",
+    "fecha_nacimiento": "2000-01-01"
+  }
+------------------------------------------------
+GET
+/mascota/
+retorna todas las mascotas hospedadas
+------------------------------------------------
+GET
+/mascota/verperfil/:nombre
+retorna la info de una mascota
+------------------------------------------------
+POST
+/mascota/registrar/:email
+registra una mascota
+body:
+{
+  "nombre": "Nombre de la Mascota",
+  "edad": 2,
+  "especie": "Gato",
+  "raza": "Raza de la Mascota",
+  "comportamiento": "Comportamiento de la Mascota",
+  "contacto_veterinario": 123456789,
+  "comentario": "Comentario sobre la Mascota"
+}            
+------------------------------------------------
+POST
+/mascota/hospedar/:email/:nombre           ///email del cuidador
+hospedar una mascota
+body:
+{
+  "fecha_devolucion": "2020-03-10"
+}
+------------------------------------------------
+GET 
+/usuario/cliente_mascotas/juancliente@email.com
+/usuario/cliente_mascotas/:email
+retornar todas las mascotas del cliente
+ejemplo  de lo que retorna
+[
+    {
+        "id_mascota": 1,
+        "nombre": "Max",
+        "edad": 3,
+        "especie": "Perro",
+        "raza": "Labrador",
+        "comportamiento": "Juguetón",
+        "contacto_veterinario": 12345678,
+        "comentario": "Es un perro activo y amigable",
+        "id_cliente": 1,
+        "nombre_cliente": "Juan"
+    },
+    {
+        "id_mascota": 3,
+        "nombre": "Rocky",
+        "edad": 4,
+        "especie": "Perro",
+        "raza": "Bulldog",
+        "comportamiento": "Fuerte",
+        "contacto_veterinario": 34567890,
+        "comentario": "Adora jugar con pelotas",
+        "id_cliente": 1,
+        "nombre_cliente": "Juan"
+    }
+]
+------------------------------------------------
+GET 
+/usuario/cuidador_mascota/mariacuidador@email.com
+/usuario/cuidador_mascota/:email
+retornar todas las mascotas del cliente
+ejemplo  de lo que retorna
+[
+    {
+        "id_mascota": 10,
+        "nombre": "Milo",
+        "edad": 1,
+        "especie": "Gato",
+        "raza": "Abyssinian",
+        "comportamiento": "Energético",
+        "contacto_veterinario": 1234567,
+        "comentario": "Le gusta trepar a lugares altos",
+        "id_cliente": 10,
+        "nombre_cuidador": "María"
+    }
+]
+------------------------------------------------
+GET
+usuario/verificacion/:email
+retoan si esta verificado
+ejemplo de retorno:
+{
+  "verificacion": "0"
+}
+------------------------------------------------
+GET
+/mascota/ver_estado/carloscuidador@email.com/3
+/mascota/ver_estado/:email/:id_mascota
+retorna el estado 
+ejemplo de retorno:
+{
+  "estado": "estado"
+}
+------------------------------------------------
+Post
+/mascota/actulizar_estado/carloscuidador@email.com/3
+/mascota/actulizar_estado/:email/:id_mascota
+actulziar el estado 
+body:
+{
+  "estado": "nuevo estaod"
+}
+------------------------------------------------
+post
+mascota/hospedar/:email/:id_mascota
+body:
+{
+  "fecha_devolucion":"2023-03-01"
+}
+post
+mascota/atender/:email/:id_mascota
+body:
+{
+  
+}
+-------------------------------------------------
+GET
+/usuario/cant_mascotas_cuidador/mariacuidador@email.com
+/usuario/cant_mascotas_cuidador/:emai
+Cantidad de mascotas que tiene el cuidador
+ejemplo de retorno 
+{
+  "cantidad_mascotas": 1
+}
