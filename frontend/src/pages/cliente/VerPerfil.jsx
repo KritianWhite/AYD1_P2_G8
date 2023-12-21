@@ -14,7 +14,7 @@ export default function VerPerfil() {
       const fecha = new Date(fechaOriginal);
       return fecha.toISOString().substring(0, 10);
     };
-    const user = localStorage.getItem("correo")
+    const user = localStorage.getItem("correo");
     console.log(user);
     // Consulta aquí a la base de datos
     fetch(`http://localhost:4000/usuario/verperfil/${user}`, {
@@ -23,10 +23,10 @@ export default function VerPerfil() {
         "Content-Type": "application/json",
       },
     })
-    .then((res) => res.json())
-    .catch((error) => console.error("Error:", error))
-    .then((response) => {
-        console.log(response)
+      .then((res) => res.json())
+      .catch((error) => console.error("Error:", error))
+      .then((response) => {
+        console.log(response);
         document.getElementById("nombre").value = response.nombre;
         document.getElementById("apellido").value = response.apellido;
         document.getElementById("correo").value = response.email;
@@ -34,7 +34,7 @@ export default function VerPerfil() {
         document.getElementById("fecha_nacimiento").value = formatearFecha(
           response.fecha_nacimiento
         );
-    });
+      });
   };
 
   // Estados para poder editar el formulario de datos del usuario
@@ -58,7 +58,41 @@ export default function VerPerfil() {
       fecha_nacimiento: document.getElementById("fecha_nacimiento").value,
       passwordd: contraseña,
     };
-    // Consulta a base de datos aqui
+    const user = localStorage.getItem("correo").replace(/"/g, "");
+    fetch(`http://localhost:4000/usuario/actulizarusuario/${user}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(usuarioObj),
+    })
+      .then((res) => res.json())
+      .catch((err) => {
+        console.log("Error:", err);
+      })
+      .then((response) => {
+        if (response) {
+          const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 2500,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.onmouseenter = Swal.stopTimer;
+              toast.onmouseleave = Swal.resumeTimer;
+            },
+          });
+          Toast.fire({
+            icon: "success",
+            title: "¡Datos actualizados correctamente!",
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Ocurrio un error inesperado, intentelo de nuevo.",
+          });
+        }
+      });
   };
 
   // Handles para poder cambiar la contraseña del usuario
@@ -79,7 +113,47 @@ export default function VerPerfil() {
       document.getElementById("contra2").value
     ) {
       if (document.getElementById("contra3").value == contraseña) {
-        const user = localStorage.getItem("usuario").replace(/"/g, "");
+        const user = localStorage.getItem("correo").replace(/"/g, "");
+        fetch(`http://localhost:4000/usuario/cambiarpass/${user}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            password: document.getElementById("contra1").value,
+          }),
+        })
+          .then((res) => res.json())
+          .catch((err) => {
+            console.log("Error:", err);
+          })
+          .then((response) => {
+            if (response) {
+              const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 2500,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.onmouseenter = Swal.stopTimer;
+                  toast.onmouseleave = Swal.resumeTimer;
+                },
+              });
+              Toast.fire({
+                icon: "success",
+                title: "¡Contraseña actualizada correctamente!",
+              });
+              setCambiarContraseña(false);
+              document.getElementById("contra1").value = "";
+              document.getElementById("contra2").value = "";
+              document.getElementById("contra3").value = "";
+            } else {
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Ocurrio un error inesperado, intentelo de nuevo.",
+              });
+            }
+          });
       } else {
         Swal.fire({
           icon: "error",
@@ -100,9 +174,9 @@ export default function VerPerfil() {
 
   useEffect(() => {
     if (localStorage.getItem("correo") == null) {
-        window.location.href = "/";
-    }else{
-        getuser();
+      window.location.href = "/";
+    } else {
+      getuser();
     }
   }, []);
 

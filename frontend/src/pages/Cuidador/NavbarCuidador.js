@@ -70,7 +70,7 @@ export default function NavbarCuidador() {
                   </a>
                   <ul class="dropdown-menu dropdown-menu-dark">
                     <li>
-                      <a class="dropdown-item" href="http://localhost:3000/usuario/verperfil">
+                      <a class="dropdown-item" href="http://localhost:3000/usuario/principalcuidador">
                         Mi perfil
                       </a>
                     </li>
