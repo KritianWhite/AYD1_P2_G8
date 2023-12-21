@@ -16,7 +16,7 @@ export default function PrincipalCuidador() {
       const fecha = new Date(fechaOriginal);
       return fecha.toISOString().substring(0, 10);
     };
-    const user = localStorage.getItem("usuario").replace(/"/g, "");
+    const user = localStorage.getItem("correo").replace(/"/g, "");
     fetch(`http://localhost:4000/usuario/verperfil/${user}`, {
       method: "GET",
     })
@@ -25,7 +25,7 @@ export default function PrincipalCuidador() {
         console.log("Error:", err);
       })
       .then((response) => {
-        console.log(response);
+        //console.log(response);
         document.getElementById("nombre").value = response.nombre;
         document.getElementById("apellido").value = response.apellido;
         document.getElementById("correo").value = response.email;
@@ -58,8 +58,8 @@ export default function PrincipalCuidador() {
       fecha_nacimiento: document.getElementById("fecha_nacimiento").value,
       passwordd: contraseña,
     };
-    const user = localStorage.getItem("usuario").replace(/"/g, "");
-    fetch(`http://localhost:4000/usuario/modificarDatos/${user}`, {
+    const user = localStorage.getItem("correo").replace(/"/g, "");
+    fetch(`http://localhost:4000/usuario/actulizarusuario/${user}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(usuarioObj),
@@ -113,8 +113,8 @@ export default function PrincipalCuidador() {
       document.getElementById("contra2").value
     ) {
       if (document.getElementById("contra3").value == contraseña) {
-        const user = localStorage.getItem("usuario").replace(/"/g, "");
-        fetch(`http://localhost:4000/usuario/cambiarPass/${user}`, {
+        const user = localStorage.getItem("correo").replace(/"/g, "");
+        fetch(`http://localhost:4000/usuario/cambiarpass/${user}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -173,12 +173,11 @@ export default function PrincipalCuidador() {
   };
 
   useEffect(() => {
-/*     if (localStorage.getItem("usuario") == null) {
+if (localStorage.getItem("correo") == null) {
       window.location.href = "http://localhost:3000/";
     }else{
       getuser();
-    } */
-    getuser();
+    } 
   }, []);
 
   return (

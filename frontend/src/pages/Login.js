@@ -95,6 +95,9 @@ const Login = () => {
           if (response.rol == "cliente"){
             localStorage.setItem("correo", response.email);
             window.location.href = "/verperfil";
+          } else if (response.rol == "cuidador"){
+            localStorage.setItem("correo", response.email);
+            window.location.href = "/principalcuidador";
           }
         });
 
@@ -131,6 +134,11 @@ const Login = () => {
     }
   };
 
+  const handleRegister = (event) => {
+    event.preventDefault();
+    window.location.href = "http://localhost:3000/RegisterForm"
+  }
+
 
   useEffect(() => {
     localStorage.clear();
@@ -151,6 +159,7 @@ const Login = () => {
               placeholder="Ingrese su correo"
             />
             <button type="submit">Siguiente</button>
+            <p>¿No tienes una cuenta? <button onClick={handleRegister}>Registrate</button></p>
           </>
         )}
         {step === 0 && (

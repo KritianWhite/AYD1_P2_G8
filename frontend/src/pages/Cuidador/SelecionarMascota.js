@@ -1,116 +1,102 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Link  } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import NavbarCuidador from "./NavbarCuidador.js";
 import Swal from "sweetalert2";
 
-
-
 import "./Styles/Inicio.css";
+import { set } from "date-fns";
 
 export default function SeleccionarMascota() {
   const [mascotas, setMascotas] = useState([]);
-  const [precioRenta, setPrecioRenta] = useState("");
-  const { titulo } = useParams();
+  const [cantidadmascotas, setCantidadMascotas] = useState(0);
 
-
-  const handleAtender = async (e) => {
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: "btn btn-success",
-        cancelButton: "btn btn-danger",
-      },
-      buttonsStyling: false,
-    });
-    swalWithBootstrapButtons
-      .fire({
-        html: `<p>Ingresa la fecha de devolución:</p>
-              <input type="date" id="fecha-devolucion" name="fecha">`,
-        icon: "info",
-        showCancelButton: true,
-        confirmButtonText: "Sí, atender.",
-        cancelButtonText: "Cancelar.",
-        reverseButtons: true,
-      })
-      .then((result) => {
-        if (result.isConfirmed) {
-          const user = localStorage.getItem("usuario").replace(/"/g, "");
-          fetch(`http://localhost:4000/libro/rentar/${user}/${titulo}`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              fecha_devolucion: document.getElementById("fecha-devolucion").value,
-            }),
-          })
-            .then((res) => res.json())
-            .catch((err) => {
-              console.log("Error:", err);
-            })
-            .then((response) => {
-              const Toast = Swal.mixin({
-                toast: true,
-                position: "top-end",
-                showConfirmButton: false,
-                timer: 3500,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                  toast.onmouseenter = Swal.stopTimer;
-                  toast.onmouseleave = Swal.resumeTimer;
-                },
-              });
-              Toast.fire({
-                icon: "success",
-                title: "¡Rentado con éxito! Podrás encontrar el libro en tu biblioteca.",
-              });
-              //window.location.reload();
-            });
-        } else if (
-          /* Read more about handling dismissals below */
-          result.dismiss === Swal.DismissReason.cancel
-        ) {
-          swalWithBootstrapButtons.fire({
-            title: "Cancelado",
-            text: "El libro no se ha rentado. ¡Sigue disfrutando de nuestra biblioteca!",
-            icon: "error",
-          });
-        }
+  const getLibros = async () => {
+    try {
+      const response = await fetch("http://localhost:4000/mascota/", {
+        method: "GET",
       });
+      const data = await response.json();
+      //console.log("Respuesta de mascotas:", data);
+      setMascotas(data || []);
+    } catch (err) {
+      console.log("Error:", err);
+    }
   };
 
-  const getLibros = async (e) => {
-    fetch("http://localhost:4000/mascota/", {
-      method: "GET",
-    })
-      .then((res) => res.json())
-      .catch((err) => {
-        console.log("Error:", err);
-      })
-      .then((response) => {
-        //console.log(response);
-        setMascotas(response || []);
+  const handleAtender = async (idmascota) => {
+    //console.log("Atender mascota con ID:", idmascota);
+    if (cantidadmascotas <2) {
+
+    const user = localStorage.getItem("correo").replace(/"/g, "");
+    try {
+      const response = await fetch(`http://localhost:4000/mascota/atender/${user}/${idmascota}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: null,
       });
+      
+      const data = await response.json();
+      if (response.ok) {
+        Swal.fire({
+          icon: "success",
+          title: "¡Mascota atendida!",
+          text: "La mascota ha sido ingresada a atención.",
+        });
+      } else {
+        // Si la respuesta no fue exitosa, mostrar un mensaje de error
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Hubo un error al atender la mascota. Por favor, inténtalo de nuevo.",
+        });
+      }
+    } catch (err) {
+      console.log("Error:", err);
+    }
+  }else{
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "No puedes atender más de 2 mascotas.",
+    });
+  };
   };
 
   useEffect(() => {
-    /*
-    const user = localStorage.getItem("usuario");
+    const user = localStorage.getItem("correo");
     if (user == null) {
       window.location.href = "http://localhost:3000/";
     } else {
+      const user = localStorage.getItem("correo").replace(/"/g, "");
+      fetch(`http://localhost:4000/usuario/cant_mascotas_cuidador/${user}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .catch((err) => {
+          console.log("Error:", err);
+        })
+        .then((response) => {
+          console.log("Respuesta de cantidad de mascotas:", response);
+         setCantidadMascotas(response.cantidad_mascotas);
+        });
       getLibros();
+
+
     }
-*/
-    getLibros();
   }, []);
 
   return (
     <>
       <NavbarCuidador />
       <div id="mostrar-usuarios">
-        <div class="container">
-            <a>Seleccionar mascota</a>
-          <div class="row" id="perfiles">
+        <div className="container">
+          <a>Seleccionar mascota</a>
+          <div className="row" id="perfiles">
             {mascotas.map((mascota, index) => (
               <div key={index} className="col-md-3 col-sm-6">
                 <div className="our-team">
@@ -125,15 +111,15 @@ export default function SeleccionarMascota() {
                   <h3 className="title">{mascota.nombre}</h3>
                   <p className="post">Especie: {mascota.especie}</p>
                   <p className="post">Raza: {mascota.raza}</p>
-                    <p className="post">Edad: {mascota.edad}</p>
-                    <p className="post">Contacto veterinario: {mascota.contacto_veterinario}</p>
+                  <p className="post">Edad: {mascota.edad}</p>
+                  <p className="post">Contacto veterinario: {mascota.contacto_veterinario}</p>
                   <ul className="social">
                     <li>
-                    <button className="btn-acciones" onClick={handleAtender}>
+                      <button className="btn-acciones" onClick={() => handleAtender(mascota.id_mascota)}>
                         <a>
-                            <i class="fa-solid fa-heart"></i>
+                          <i className="fa-solid fa-heart"></i>
                         </a>
-                    </button>
+                      </button>
                     </li>
                   </ul>
                 </div>
