@@ -60,7 +60,7 @@ export default function PrincipalCuidador() {
     };
     const user = localStorage.getItem("correo").replace(/"/g, "");
     fetch(`http://localhost:4000/usuario/actulizarusuario/${user}`, {
-      method: "PUT",
+      method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(usuarioObj),
     })
@@ -115,7 +115,7 @@ export default function PrincipalCuidador() {
       if (document.getElementById("contra3").value == contraseña) {
         const user = localStorage.getItem("correo").replace(/"/g, "");
         fetch(`http://localhost:4000/usuario/cambiarpass/${user}`, {
-          method: "PUT",
+          method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             password: document.getElementById("contra1").value,
