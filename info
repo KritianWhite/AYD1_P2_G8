@@ -215,3 +215,72 @@ ejemplo de retorno
 {
   "cantidad_mascotas": 1
 }
+-------------------------------------------------
+GET - Devuleve todos los productos de todos los cuidadores
+/tienda/juancuidador@email.com
+/tienda/:email
+ejemplo de retorno:
+[
+    {
+        "id_producto": 6,
+        "imagen": {
+            "type": "Buffer",
+            "data": [
+                105,
+                109,
+                97,
+                103,
+                101,
+                110,
+                54,
+                46,
+                106,
+                112,
+                103
+            ]
+        },
+        "nombre": "Cepillo para gatos",
+        "descripcion": "Cepillo de doble cara para cuidado del pelaje",
+        "precio": 8.75,
+        "cantidad_disponible": 60,
+        "id_cuidador": 2
+    }
+]
+-------------------------------------------------
+GET - Devuleve todos los productos de todos los cuidadores
+/tienda/
+/tienda/
+ejemplo de retorno:
+[
+    {
+        "id_producto": 6,
+        "imagen": {
+            "type": "Buffer",
+            "data": [
+                105,
+                109,
+                97,
+                103,
+                101,
+                110,
+                54,
+                46,
+                106,
+                112,
+                103
+            ]
+        },
+        "nombre": "Cepillo para gatos",
+        "descripcion": "Cepillo de doble cara para cuidado del pelaje",
+        "precio": 8.75,
+        "cantidad_disponible": 60,
+        "id_cuidador": 2
+    }
+]
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
