@@ -7,8 +7,8 @@ ___
 ___
 ## **MODELOS **
 ### **MODELO CONCEPTUAL**
-![conceptual](../Database/Modelo/conceptual.png)
+![conceptual](../database/Modelo/conceptual.png)
 ### **MODELO LOGICO**
-![logico](../Database/Modelo/Logical.png)
+![logico](../database/Modelo/Logical.png)
 ### **MODELO RELACIONAL**
-![RELACIONAL](../Database/Modelo/Relational.png)
+![RELACIONAL](../database/Modelo/Relational.png)

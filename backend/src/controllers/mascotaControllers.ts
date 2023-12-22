@@ -65,12 +65,11 @@ class MascotaController{
             const email  = corregirFormato(req.params.email);
             const id_mascota  = corregirFormato(req.params.id_mascota);
             // Realiza la consulta 
-            pool.query('SELECT id_cuidador FROM CUIDADOR WHERE email = ?',[email], (error, cuidador) => {
-                if (cuidador ) {
+            pool.query('SELECT id_cliente FROM CLIENTE WHERE email = ?',[email], (error, results) => {
+                if (results && results.length>0 ) {
                     req.body.id_mascota=id_mascota
-                    req.body.id_cuidador=cuidador[0].id_cuidador
-                    req.body.estado="ingresado"
                     pool.query('INSERT INTO HOSPEDAR SET ?',[req.body]);
+                    res.json({ message: 'Se realizo el hospedaje con exito' });
                 }else{
                     res.status(500).json({ message: 'Error al realizar el hospedaje' });            
                 }
