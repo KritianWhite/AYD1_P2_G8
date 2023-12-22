@@ -109,7 +109,7 @@ body:
 }            
 ------------------------------------------------
 POST
-/mascota/hospedar/:email/:nombre           ///email del cuidador
+/mascota/hospedar/:email/:id_mascota           ///email del cuidador
 hospedar una mascota
 body:
 {
