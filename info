@@ -278,6 +278,17 @@ ejemplo de retorno:
     }
 ]
 -------------------------------------------------
+POST - Insertar un producto de un cuidador
+/tienda/registrar/:email
+/tienda/registrar/juancuidador@email.com
+body:
+{
+  "imagen": "imagen.jpg",
+  "nombre": "Nombre del Producto",
+  "descripcion": "Descripción del Producto",
+  "precio": 19.99,
+  "cantidad_disponible": 100
+}
 -------------------------------------------------
 -------------------------------------------------
 -------------------------------------------------

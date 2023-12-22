@@ -35,7 +35,25 @@ class TiendaControllers{
             res.status(500).json({ message: 'Error al obtener los productos del cuidador' });
         }
     }
-    //ingresar un nuevo producto
+    
+    // POST - Insertar un producto de un cuidador
+    public async InsertarProducto(req: Request, res: Response): Promise<void>{
+        try {
+            const email  = corregirFormato(req.params.email);
+            // Realiza la consulta 
+            pool.query('SELECT id_cuidador FROM CUIDADOR WHERE email = ?',[email], (error, results) => {
+                if (results && results.length>0 ) {
+                    req.body.id_cuidador=results[0].id_cuidador
+                    pool.query('INSERT INTO PRODUCTO SET ?',[req.body]);
+                    res.json({ message: 'Se registro el producto con exito' });
+                }else{
+                    res.status(500).json({ message: 'Error al realizar el registro de producto' });            
+                }
+            });
+        } catch (error) {
+            res.status(500).json({ message: 'Error al realizar el registro de producto' });        
+        }
+    }
     //actilizar datos del producto
     //actulizar precio de venta
     //actilizar la cantidad disponible
