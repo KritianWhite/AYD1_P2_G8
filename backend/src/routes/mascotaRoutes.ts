@@ -18,6 +18,8 @@ class UsuariosRoutes{
         this.router.get('/ver_estado/:email/:id_mascota', mascotaController.VerEstadoMascota);
         this.router.post('/actulizar_estado/:email/:id_mascota', mascotaController.ActulizarEstado);
         this.router.get('/mascota_cuidador/:email', mascotaController.ListaMascotaCuidador);
+        this.router.get('/recoger/:id_mascota', mascotaController.RecogerMascota);
+        this.router.get('/devolver/:id_mascota', mascotaController.DevolverMascota);
         
 
 

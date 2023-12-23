@@ -141,7 +141,7 @@ class MascotaController{
                 if (results && results.length > 0) {
                     res.json(results);
                 } else {
-                    res.json({message: "No se encontraron mascotas"}); // Enviar un JSON vacío 
+                    res.json({message: "No se encontraron mascotas"});  
                 }
             });
         } catch (error) {
@@ -150,7 +150,36 @@ class MascotaController{
         }
     }
     
+    //GET - Recoger Mascota 
+    public async RecogerMascota(req: Request, res: Response): Promise<void> {
+        try {
+            const id_mascota  = corregirFormato(req.params.id_mascota);
+            pool.query('DELETE FROM HOSPEDAR WHERE id_mascota = ?',[id_mascota]);
+            res.json({message: "Se recogio la mascota"});
+        } catch (error) {
+        // console.error('Error al obtener usuarios:', error);
+            res.status(500).json({ message: 'Error al realizar el proceso de recoger mascota' });
+        }
+    }
 
+    //GET - Devolver Mascota 
+    public async DevolverMascota(req: Request, res: Response): Promise<void> {
+        try {
+            const id_mascota  = corregirFormato(req.params.id_mascota);
+            pool.query('SELECT * FROM proyecto2.HOSPEDAR WHERE CURDATE() > fecha_devolucion and id_mascota = ?',[id_mascota],(error, results) => {
+                if (results && results.length>0) {
+                    results[0].estado="Listo para recoger"
+                    console.log(results[0])
+                    res.json(results[0]);    
+                }else{
+                    res.json({message: "Aun no se puede devolver la mascota"});    
+                }
+            });
+            
+        } catch (error) {
+            res.status(500).json({ message: 'Error al realizar el proceso de devolver mascota' });
+        }
+    }
 
 }
 

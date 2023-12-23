@@ -422,3 +422,17 @@ body:
   "comentario": "Mi perro durmió profundamente durante toda la estadía. Muy satisfecho."
 }
 -------------------------------------------------
+//GET - Recoger Mascota 
+/mascota/recoger/:id:id_mascota
+/mascota/recoger/10
+-------------------------------------------------
+//GET - Devolver Mascota - verifica que la fecha ya haya pasado
+/mascota/devolver/:id_mascota
+/mascota/devolver/6
+ejemplo de retorno: 
+{
+  "id_hospedaje": 3,
+  "fecha_devolucion": "2023-03-03T06:00:00.000Z",
+  "id_mascota": 6,
+  "estado": "Listo para recoger"
+}
