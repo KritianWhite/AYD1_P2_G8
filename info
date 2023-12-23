@@ -290,7 +290,44 @@ body:
   "cantidad_disponible": 100
 }
 -------------------------------------------------
+GET - retorna la informacion de un producto por su id
+/tienda/producto/:id_producto
+/tienda/producto/2
+{
+  "id_producto": 2,
+  "imagen": {
+      "type": "Buffer",
+      "data": [
+          105,
+          109,
+          97,
+          103,
+          101,
+          110,
+          50,
+          46,
+          106,
+          112,
+          103
+      ]
+  },
+  "nombre": "Juguete para gatos",
+  "descripcion": "Pelota de lana con campana",
+  "precio": 10.5,
+  "cantidad_disponible": 50,
+  "id_cuidador": 5
+}
 -------------------------------------------------
+POST - actilizar los datos del producto
+/tienda/actulizar/:id_producto
+/tienda/actulizar/2
+body:
+{
+  "nombre": "Nuevo nombre del producto",
+  "descripcion": "Nueva descripción del producto",
+  "precio": 29.99,
+  "cantidad_disponible": 50
+}
 -------------------------------------------------
 -------------------------------------------------
 -------------------------------------------------
