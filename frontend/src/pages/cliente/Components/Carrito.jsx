@@ -12,13 +12,13 @@ const Carrito = ({ carrito, onRemoveFromCart, onCancel }) => {
         <div key={index} className="carrito-item">
           <div className="carrito-item-details">
             <p>{item.nombre}</p>
-            <p>Precio: ${item.precio}</p>
+            <p>Precio: Q{item.precio}</p>
           </div>
           <button class="btn btn-danger" onClick={() => onRemoveFromCart(item)}>Eliminar</button>
         </div>
       ))}
       <div className="carrito-total">
-        <p>Total: ${calcularTotal()}</p>
+        <p>Total: Q{calcularTotal()}</p>
       <button class="btn btn-success" onClick={onCancel}>Pagar compra</button>
       </div>
     </div>
