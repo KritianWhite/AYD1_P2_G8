@@ -8,7 +8,7 @@ import SeleccionarMascota from "./pages/Cuidador/SelecionarMascota.js";
 import AtenderMascota from "./pages/Cuidador/AtenderMascota.js";
 import Verperfil from "./pages/cliente/VerPerfil.jsx";
 import MisMascotas from "./pages/cliente/MisMascotas.jsx";
-
+import Tienda from "./pages/cliente/Tienda.jsx";
 
 import './App.css';
 
@@ -25,6 +25,7 @@ function App() {
         <Route path="/atendermascota" element={<AtenderMascota/>}/>
         <Route path="/verperfil" element={<Verperfil/>}/>
         <Route path="/mismascotas" element={<MisMascotas/>}/>
+        <Route path="/tienda" element={<Tienda/>}/>
       </Routes>
     </Router>
 

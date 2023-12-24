@@ -138,8 +138,8 @@ export default function Navbar() {
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="">
-                    Opcion 2
+                  <a class="nav-link active" aria-current="page" href="/tienda">
+                    Tienda
                   </a>
                 </li>
                 
