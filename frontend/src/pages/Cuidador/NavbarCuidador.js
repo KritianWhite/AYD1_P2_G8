@@ -52,7 +52,7 @@ export default function NavbarCuidador() {
                   <a
                     class="nav-link active"
                     aria-current="page"
-                    href="http://localhost:3000/usuario/mislibros"
+                    href="http://localhost:3000/atendermascota"
                   >
                     Mis Mascotas
                   </a>

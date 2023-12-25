@@ -24,7 +24,10 @@ export default function Navbar() {
         focusConfirm: false,
         allowOutsideClick: false, // Evita que el usuario haga clic fuera del formulario para cerrar la alerta
         allowEscapeKey: true, // Permite que el usuario cierre la alerta con la tecla Esc
+
         preConfirm: async () => {
+
+
           return {
             nombre: document.getElementById("swal-nombre").value,
             edad: document.getElementById("swal-edad").value,

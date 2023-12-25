@@ -127,7 +127,7 @@ export default function MisMascotas() {
             <h6>{mascota.comentario}</h6>
             <ul className="social">
               <li>
-                <a href="#" onClick={(e) => handleHospedar(mascota.nombre)}>
+                <a href="#" onClick={(e) => handleHospedar(mascota.id_mascota)}>
                   <i class="fas fa-house"></i>
                 </a>
               </li>
