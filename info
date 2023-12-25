@@ -215,3 +215,224 @@ ejemplo de retorno
 {
   "cantidad_mascotas": 1
 }
+-------------------------------------------------
+FASE 2
+-------------------------------------------------
+GET - Devuleve todos los productos de todos los cuidadores
+/tienda/juancuidador@email.com
+/tienda/:email
+ejemplo de retorno:
+[
+    {
+        "id_producto": 6,
+        "imagen": {
+            "type": "Buffer",
+            "data": [
+                105,
+                109,
+                97,
+                103,
+                101,
+                110,
+                54,
+                46,
+                106,
+                112,
+                103
+            ]
+        },
+        "nombre": "Cepillo para gatos",
+        "descripcion": "Cepillo de doble cara para cuidado del pelaje",
+        "precio": 8.75,
+        "cantidad_disponible": 60,
+        "id_cuidador": 2
+    }
+]
+-------------------------------------------------
+GET - Devuleve todos los productos de todos los cuidadores
+/tienda/
+/tienda/
+ejemplo de retorno:
+[
+    {
+        "id_producto": 6,
+        "imagen": {
+            "type": "Buffer",
+            "data": [
+                105,
+                109,
+                97,
+                103,
+                101,
+                110,
+                54,
+                46,
+                106,
+                112,
+                103
+            ]
+        },
+        "nombre": "Cepillo para gatos",
+        "descripcion": "Cepillo de doble cara para cuidado del pelaje",
+        "precio": 8.75,
+        "cantidad_disponible": 60,
+        "id_cuidador": 2
+    }
+]
+-------------------------------------------------
+POST - Insertar un producto de un cuidador
+/tienda/registrar/:email
+/tienda/registrar/juancuidador@email.com
+body:
+{
+  "imagen": "imagen.jpg",
+  "nombre": "Nombre del Producto",
+  "descripcion": "Descripción del Producto",
+  "precio": 19.99,
+  "cantidad_disponible": 100
+}
+-------------------------------------------------
+GET - retorna la informacion de un producto por su id
+/tienda/producto/:id_producto
+/tienda/producto/2
+{
+  "id_producto": 2,
+  "imagen": {
+      "type": "Buffer",
+      "data": [
+          105,
+          109,
+          97,
+          103,
+          101,
+          110,
+          50,
+          46,
+          106,
+          112,
+          103
+      ]
+  },
+  "nombre": "Juguete para gatos",
+  "descripcion": "Pelota de lana con campana",
+  "precio": 10.5,
+  "cantidad_disponible": 50,
+  "id_cuidador": 5
+}
+-------------------------------------------------
+POST - actilizar los datos del producto
+/tienda/actulizar/:id_producto
+/tienda/actulizar/2
+body:
+{
+  "nombre": "Nuevo nombre del producto",
+  "descripcion": "Nueva descripción del producto",
+  "precio": 29.99,
+  "cantidad_disponible": 50
+}
+-------------------------------------------------
+POST - Un cliente realiza una reseña a un cuidador por sus emails
+/comentario/comentario_cuidador/:email_cliente/:email_cuidador
+/comentario/comentario_cuidador/anacliente@email.com/mariacuidador@email.com
+body:
+{
+  "comentario": "nuevo comentario"
+}
+-------------------------------------------------
+POST - Realizar una reseña a la plataforma
+/comentario/comentario_plataforma/:email   (email del cliente)
+/comentario/comentario_plataforma/lauracliente@email.com
+body:
+{
+  "punteo": 5,
+  "comentario": "Excelente plataforma, muy fácil de usar"
+}
+-------------------------------------------------
+GET - retorna todas las reseñas de ese cuidador por su email
+/comentario/cuidador/:email  (email del cuidador)
+/comentario/cuidador/mariacuidador@email.com
+ejemplo de retorno:
+[
+    {
+        "id_comentario": 5,
+        "comentario": "El cuidador jugó mucho con mi mascota. Se nota que ama a los animales.",
+        "id_cuidador": 1,
+        "id_cliente": 5,
+        "nombre_cliente": "Javier",
+        "apellido_cliente": "Sánchez",
+        "telefono_cliente": 55678901,
+        "email_cliente": "javiercliente@email.com",
+        "fecha_nacimiento_cliente": "1995-09-28T06:00:00.000Z",
+        "nombre_cuidador": "María",
+        "apellido_cuidador": "Rodríguez",
+        "telefono_cuidador": 12345678,
+        "email_cuidador": "mariacuidador@email.com",
+        "fecha_nacimiento_cuidador": "1990-05-15T06:00:00.000Z"
+    },
+    {
+        "id_comentario": 20,
+        "comentario": "Buen trabajo en mantener a mi mascota entretenida y cómoda. Gracias.",
+        "id_cuidador": 1,
+        "id_cliente": 10,
+        "nombre_cliente": "Carolina",
+        "apellido_cliente": "Castro",
+        "telefono_cliente": 50123456,
+        "email_cliente": "carolinacliente@email.com",
+        "fecha_nacimiento_cliente": "1987-01-30T06:00:00.000Z",
+        "nombre_cuidador": "María",
+        "apellido_cuidador": "Rodríguez",
+        "telefono_cuidador": 12345678,
+        "email_cuidador": "mariacuidador@email.com",
+        "fecha_nacimiento_cuidador": "1990-05-15T06:00:00.000Z"
+    }
+]
+-------------------------------------------------
+//GET - retorna todas las reseñas realizadas a la plataforma
+/comentario/plataforma
+ejemplo de retorno:
+[
+    {
+        "id_calificacion": 1,
+        "punteo": 5,
+        "comentario": "¡Excelente servicio! Mi mascota estuvo feliz durante toda la estadía.",
+        "id_cliente": 1,
+        "nombre_cliente": "Juan",
+        "apellido_cliente": "Pérez",
+        "telefono_cliente": 51234567,
+        "email_cliente": "juancliente@email.com",
+        "fecha_nacimiento_cliente": "1990-05-15T06:00:00.000Z"
+    },
+    {
+        "id_calificacion": 2,
+        "punteo": 4,
+        "comentario": "Buena atención, pero sería genial si ofrecieran actualizaciones diarias.",
+        "id_cliente": 2,
+        "nombre_cliente": "Ana",
+        "apellido_cliente": "Rodríguez",
+        "telefono_cliente": 52345678,
+        "email_cliente": "anacliente@email.com",
+        "fecha_nacimiento_cliente": "1985-08-22T06:00:00.000Z"
+    }
+]
+-------------------------------------------------
+//POST - Eliminar reseña de un cliente hecho al cuidador
+/comentario/eliminar
+body:
+{
+  "comentario": "Mi perro durmió profundamente durante toda la estadía. Muy satisfecho."
+}
+-------------------------------------------------
+//GET - Recoger Mascota 
+/mascota/recoger/:id:id_mascota
+/mascota/recoger/10
+-------------------------------------------------
+//GET - Devolver Mascota - verifica que la fecha ya haya pasado
+/mascota/devolver/:id_mascota
+/mascota/devolver/6
+ejemplo de retorno: 
+{
+  "id_hospedaje": 3,
+  "fecha_devolucion": "2023-03-03T06:00:00.000Z",
+  "id_mascota": 6,
+  "estado": "Listo para recoger"
+}
