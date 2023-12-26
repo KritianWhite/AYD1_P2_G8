@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS proyecto2.CUIDADOR (
 
 CREATE TABLE IF NOT EXISTS proyecto2.PRODUCTO (
     id_producto INTEGER NOT NULL AUTO_INCREMENT,
-    imagen BLOB NULL,
+    imagen VARCHAR(500),
     nombre VARCHAR(100) NOT NULL,
     descripcion VARCHAR(300) NOT NULL,
     precio FLOAT NOT NULL,

@@ -39,7 +39,7 @@ class UsuariosController{
         }
     }
 
-    // Post - Login
+    // Post - Codigo
     public async Codigo(req: Request, res: Response): Promise<void> {
         try {
             const email  = corregirFormato(req.params.email);
@@ -167,7 +167,7 @@ class UsuariosController{
         try {
             const email  = corregirFormato(req.params.email);
             // Realiza la consulta 
-            pool.query('SELECT M.*, C.nombre AS nombre_cliente FROM proyecto2.CLIENTE C JOIN proyecto2.MASCOTA M ON C.id_cliente = M.id_cliente WHERE C.email = ? ',[email], (error, results) => {
+            pool.query('SELECT M.*, C.nombre AS nombre_cliente, H.estado AS estado_mascota FROM CLIENTE C JOIN MASCOTA M ON C.id_cliente = M.id_cliente LEFT JOIN ATENCION H ON M.id_mascota = H.id_mascota WHERE C.email = ? ',[email], (error, results) => {
                 if (results && results.length>0 ) {
                     res.json(results);
                 }else{

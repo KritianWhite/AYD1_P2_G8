@@ -1,0 +1,56 @@
+.container-review {
+    margin-top: 8vh;
+}
+
+.container-publicar {
+    display: flex;
+    align-items: center;
+}
+
+.container-publicar button{
+    margin-left: 10px;
+}
+
+.review {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+}
+
+.author {
+    font-weight: bold;
+}
+
+.separator {
+    margin: 0 10px;
+}
+
+.rating {
+    display: flex;
+}
+
+.rating span {
+    color: #ffa500;
+}
+
+.review-content {
+    margin-top: 10px;
+}
+
+.reviews-list {
+    width: 500px;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.new-review {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+}

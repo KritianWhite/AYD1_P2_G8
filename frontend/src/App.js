@@ -9,7 +9,11 @@ import AtenderMascota from "./pages/Cuidador/AtenderMascota.js";
 import Verperfil from "./pages/cliente/VerPerfil.jsx";
 import MisMascotas from "./pages/cliente/MisMascotas.jsx";
 import Tienda from "./pages/cliente/Tienda.jsx";
+<<<<<<< HEAD
 import TiendaCuidador from "./pages/Cuidador/TiendaCuidador.js";
+=======
+import Reviews from "./pages/cliente/Reviews.jsx";
+>>>>>>> origin/develop
 
 import './App.css';
 
@@ -27,7 +31,11 @@ function App() {
         <Route path="/verperfil" element={<Verperfil/>}/>
         <Route path="/mismascotas" element={<MisMascotas/>}/>
         <Route path="/tienda" element={<Tienda/>}/>
+<<<<<<< HEAD
         <Route path="/tiendacuidador" element={<TiendaCuidador/>}/>{}
+=======
+        <Route path="/reviews" element={<Reviews/>}/>
+>>>>>>> origin/develop
       </Routes>
     </Router>
 
