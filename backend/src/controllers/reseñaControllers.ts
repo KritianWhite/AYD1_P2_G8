@@ -86,6 +86,23 @@ class ReseñaControllers{
             res.status(500).json({ message: 'Error al eliminar el comentario' });
         }
     }
+
+     //GET - retorna la calificacion por cliente
+     public async CalificacionCliente(req: Request, res: Response): Promise<void> {
+        try {
+            const email  = corregirFormato(req.params.email);
+            pool.query('SELECT punteo FROM CALIFICACION where id_cliente = (SELECT id_cliente FROM CLIENTE WHERE email= ? )',[email], (error, results) => {
+                if (results && results.length > 0) {
+                    res.json(results[0]);
+                } else {
+                    res.json({message: "No se encontro calificacion "});
+                }
+            });
+        } catch (error) {
+            res.status(500).json({message: "No se encontro calificacion "});
+        }
+    }
+
 }
 
 export const reseñaControllers = new ReseñaControllers();
