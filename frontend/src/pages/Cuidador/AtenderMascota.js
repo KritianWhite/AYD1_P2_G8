@@ -101,6 +101,8 @@ export default function AtenderMascota() {
 
             {/* Botón para guardar la opción seleccionada */}
             <button onClick={() => handleSaveOption(index)}>Guardar</button>
+            <button >Devolver</button>
+
           </div>
         ))}
       </div>
