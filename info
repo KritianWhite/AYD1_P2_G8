@@ -436,3 +436,16 @@ ejemplo de retorno:
   "id_mascota": 6,
   "estado": "Listo para recoger"
 }
+-------------------------------------------------
+GET - eliminar un producto por su id_producto
+/tienda/eliminar/:id_producto
+/tienda/eliminar/2
+-------------------------------------------------
+GET - retorna la calificacion por cliente
+comentario/:email
+comentario/juancliente@email.com
+ejemplo de retorno: 
+{
+  "punteo": 5
+}
+-------------------------------------------------
