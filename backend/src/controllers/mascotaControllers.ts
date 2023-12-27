@@ -12,7 +12,7 @@ class MascotaController{
                 if (results && results.length > 0) {
                     res.json(results);
                 } else {
-                    res.json({message: "No se encontraron mascotas"}); // Enviar un JSON vacío 
+                    res.json({message: "No se encontraron mascotas"}); 
                 }
             });
         } catch (error) {
@@ -171,6 +171,7 @@ class MascotaController{
                     results[0].estado="Listo para recoger"
                     console.log(results[0])
                     res.json(results[0]);    
+                    pool.query('DELETE FROM ATENCION WHERE id_mascota = ? LIMIT 1',[id_mascota]);
                 }else{
                     res.json({message: "Aun no se puede devolver la mascota"});    
                 }
