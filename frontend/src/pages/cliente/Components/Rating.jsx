@@ -1,8 +1,12 @@
-// Rating.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-export default function Rating({onRatingChange }) {
+export default function Rating({ userRating, onRatingChange }) {
   const [rating, setRating] = useState(0);
+
+  useEffect(() => {
+    // Actualiza el estado local cuando la puntuación del usuario cambia
+    setRating(userRating);
+  }, [userRating]);
 
   const handleRatingChange = (event) => {
     const selectedRating = parseInt(event.target.value, 10);
@@ -11,8 +15,6 @@ export default function Rating({onRatingChange }) {
     // Llama a la función onRatingChange desde las propiedades para pasar el rating al componente padre
     onRatingChange(selectedRating);
   };
-
-  console.log(rating);
 
   return (
     <>

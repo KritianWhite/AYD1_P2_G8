@@ -56,3 +56,13 @@
     border: 1px solid #ccc;
 }
 
+/* Agrega estilos según tus necesidades */
+.delete-button {
+    background: none;
+    border: none;
+    color: red;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 10px;
+  }
+  

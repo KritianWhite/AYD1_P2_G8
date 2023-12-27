@@ -8,37 +8,40 @@ import "./Styles/Reviews.css";
 import "./Styles/Rating.css";
 
 export default function Reviews() {
+  const [sampleReviews, setSampleReviews] = useState([]);
 
-    const [sampleReviews, setSampleReviews] = useState([]);
-
-//   const sampleReviews = [
-//     { author: "Usuario1", content: "Excelente producto", rating: 5 },
-//     { author: "Usuario2", content: "Buen servicio al cliente", rating: 4 },
-//     // Agrega más reseñas según sea necesario
-//   ];
+  //   const sampleReviews = [
+  //     { author: "Usuario1", content: "Excelente producto", rating: 5 },
+  //     { author: "Usuario2", content: "Buen servicio al cliente", rating: 4 },
+  //     // Agrega más reseñas según sea necesario
+  //   ];
 
   useEffect(() => {
     // Aquí se debe hacer la petición al backend para obtener las reseñas
-    fetch(`http://localhost:4000/comentario/plataforma`,{
-        method: 'GET',
+
+    if (localStorage.getItem("correo") == null) {
+      window.location.href = "/";
+    } else {
+      fetch(`http://localhost:4000/comentario/plataforma`, {
+        method: "GET",
         headers: {
-            'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-    })
-    .then(res => res.json())
-    .catch(error => console.error('Error:', error))
-    .then(response => {
-        if (response){
-            console.log('Success:', response);
+      })
+        .then((res) => res.json())
+        .catch((error) => console.error("Error:", error))
+        .then((response) => {
+          if (response) {
             setSampleReviews(response);
-        }else{
+          } else {
             Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'No se pudo obtener los comentarios',
-            })
-        }
-    });
+              icon: "error",
+              title: "Oops...",
+              text: "No se pudo obtener los comentarios",
+            });
+          }
+        });
+    }
   }, []);
 
   return (
