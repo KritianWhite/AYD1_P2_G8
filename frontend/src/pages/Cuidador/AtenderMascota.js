@@ -17,8 +17,34 @@ export default function AtenderMascota() {
   const handleOptionChange = (index, e) => {
     const newOptions = { ...selectedOptions, [index]: e.target.value };
     setSelectedOptions(newOptions);
+  };
 
-    
+
+  const handleDevolver = (index) => {
+
+    console.log(`ID de mascota ${index}:`, mascotas[index].id_mascota);
+
+    const idmascota2 = mascotas[index].id_mascota;
+
+    // Aquí puedes hacer una llamada a la API para guardar la opción seleccionada
+    const user = localStorage.getItem("correo").replace(/"/g, "");
+    fetch(`http://localhost:4000/mascota/actulizar_estado/${user}/${idmascota2}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        estado: "Devuelto",
+      }),
+    })
+      .then((res) => res.json())
+      .catch((err) => {
+        console.log("Error:", err);
+      })
+      .then((response) => {
+        Swal.fire({ icon: "success", title: "¡Estado actualizado!", text: "El estado de la mascota ha sido actualizado." });
+        window.location.reload();
+      });
   };
 
   const handleSaveOption = (index) => {
@@ -101,7 +127,8 @@ export default function AtenderMascota() {
 
             {/* Botón para guardar la opción seleccionada */}
             <button onClick={() => handleSaveOption(index)}>Guardar</button>
-            <button >Devolver</button>
+
+            <button onClick={()=> handleDevolver(index)}>Devolver</button>
 
           </div>
         ))}

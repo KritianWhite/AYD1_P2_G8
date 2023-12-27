@@ -57,6 +57,15 @@ export default function NavbarCuidador() {
                     Mis Mascotas
                   </a>
                 </li>
+                <li class="nav-item">
+                  <a
+                    class="nav-link active"
+                    aria-current="page"
+                    href="http://localhost:3000/tiendacuidador"
+                  >
+                    Tienda
+                  </a>
+                </li>
 
                 <li class="nav-item dropdown">
                   <a

@@ -14,10 +14,11 @@ function convertImageToBase64(image) {
   });
 }
 
-export default function AtenderMascota() {
+export default function TiendaCuidador() {
   const [mascotas, setMascotas] = useState([]);
   const [selectedOptions, setSelectedOptions] = useState({});
   const [idmascota, setIdMascota] = useState(0);
+  const [imagePath, setImagePath] = useState('');
 
   const formatearFecha = (fechaOriginal) => {
     const fecha = new Date(fechaOriginal);
@@ -78,6 +79,78 @@ export default function AtenderMascota() {
       }
     });
   };
+
+  const handleEditarPerfil = async (id) => {
+    try {
+      // Obtener los datos del producto por su ID
+      const response = await fetch(`http://localhost:4000/tienda/producto/${id}`);
+      const data = await response.json();
+  
+      const { value: formValues } = await Swal.fire({
+        title: "EDITAR PRODUCTO",
+        html: `
+          <input id="swal-nombre" class="swal2-input" placeholder="Nombre del producto" value="${data.nombre}">
+          <input id="swal-descripcion" class="swal2-input" placeholder="Descripción" value="${data.descripcion}">
+          <input id="swal-precio" class="swal2-input" placeholder="Precio" value="${data.precio}">
+          <input id="swal-cantidad" class="swal2-input" placeholder="Cantidad disponible" value="${data.cantidad_disponible}">
+          <input id="swal-imagen" type="file" class="swal2-input" accept="image/*" placeholder="Seleccionar imagen">
+  
+          <img src="${data.imagen}" alt="Imagen actual" style="max-width: 100%; height: auto;">
+        `,
+        icon: "info",
+        cancelButtonText: "Cancelar",
+        confirmButtonText: "Guardar Cambios",
+        showCancelButton: true,
+        focusConfirm: false,
+        allowOutsideClick: false,
+        allowEscapeKey: true,
+        preConfirm: async () => {
+          const nombre = document.getElementById("swal-nombre").value;
+          const descripcion = document.getElementById("swal-descripcion").value;
+          const precio = document.getElementById("swal-precio").value;
+          const cantidad_disponible = document.getElementById("swal-cantidad").value;
+  
+          // ... Resto del código para manejar la imagen, si es necesario
+  
+          return {
+            nombre,
+            descripcion,
+            precio,
+            cantidad_disponible,
+          };
+        },
+      });
+  
+      if (formValues) {
+        // Realizar la solicitud de actualización con los nuevos valores
+        const user = localStorage.getItem("correo").replace(/"/g, "");
+        await fetch(`http://localhost:4000/tienda/actulizar/${id}`, {
+          method: "POST",
+          body: JSON.stringify(formValues),
+          headers: { "Content-type": "application/json;charset=UTF-8" },
+        });
+  
+        // Mostrar mensaje de éxito
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 1500,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          },
+        });
+        Toast.fire({
+          icon: "success",
+          title: "Producto actualizado exitosamente",
+        });
+      }
+    } catch (error) {
+      // Manejar errores
+    }
+  }
   
 
   const handleCrearPerfil = async () => {
@@ -104,23 +177,33 @@ export default function AtenderMascota() {
           const nombre = document.getElementById("swal-nombre").value;
           const descripcion = document.getElementById("swal-descripcion").value;
           const precio = document.getElementById("swal-precio").value;
-          const cantidad = document.getElementById("swal-cantidad").value;
-          const imagenInput = document.getElementById("swal-imagen");
+          const cantidad_disponible = document.getElementById("swal-cantidad").value;
+          const imagenInput = document.getElementById("swal-imagen").files[0];
+           console.log("Imagen", imagenInput); 
+
+          //const imagen = "";
           
           // Obtener el archivo de imagen
-          const imagen = imagenInput.files[0];
+          
+          if (imagenInput) {
+            // Obtener la ruta de la imagen
+           const path = URL.createObjectURL(imagenInput);
+           setImagePath(path);
+           console.log("Path", imagePath);
+          
+          }
           
           // Convertir la imagen a base64
-          const base64Image = await convertImageToBase64(imagen);
+          //const base64Image = await convertImageToBase64(imagen);
           //console.log(base64Image);
           
        
           return {
-            imagen: base64Image,
+            imagen: imagePath,
             nombre,
             descripcion,
             precio,
-            cantidad
+            cantidad_disponible
           };
        },
       });
@@ -156,7 +239,7 @@ export default function AtenderMascota() {
               });
               Toast.fire({
                 icon: "success",
-                title: "Perfil creado exitosamente",
+                title: "Producto creado exitosamente",
               });
             } else {
               Swal.fire({
@@ -205,7 +288,11 @@ export default function AtenderMascota() {
   return (
     <>
       <NavbarCuidador />
+
       <div className="container">
+      <button style={{ cursor: 'pointer' }} onClick={handleCrearPerfil}>
+  Crear nuevo producto
+</button>
         {mascotas.map((mascota, index) => (
           <div key={index} className="card-mislibros">
             <img src="https://img2.wallspic.com/previews/2/9/0/4/6/164092/164092-samsung_galaxy-samsung-smartphone-water-liquid-x750.jpg" alt="Mascota" />
@@ -215,7 +302,7 @@ export default function AtenderMascota() {
             <p>Precio: {mascota.precio}</p>
             {/* Botón para guardar la opción seleccionada */}
             <button onClick={() => handleEliminarProducto(mascota.id_producto)}>Eliminar producto</button>
-            <button >Editar producto</button>
+            <button onClick={() => handleEditarPerfil(mascota.id_producto) }>Editar producto</button>
           </div>
         ))}
       </div>
