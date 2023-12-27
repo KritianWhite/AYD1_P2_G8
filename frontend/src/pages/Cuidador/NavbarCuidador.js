@@ -66,6 +66,15 @@ export default function NavbarCuidador() {
                     Tienda
                   </a>
                 </li>
+                <li class="nav-item">
+                  <a
+                    class="nav-link active"
+                    aria-current="page"
+                    href="http://localhost:3000/reviewscuidador"
+                  >
+                    Reseñas
+                  </a>
+                </li>
 
                 <li class="nav-item dropdown">
                   <a

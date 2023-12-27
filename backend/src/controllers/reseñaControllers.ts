@@ -80,7 +80,7 @@ class ReseñaControllers{
     //POST - Eliminar reseña de un cliente hecho al cuidador
     public async EliminarReseña(req: Request, res: Response):Promise<void>{
         try{
-            pool.query('DELETE FROM COMENTARIO WHERE comentario = ? LIMIT 1',[req.body.comentario]);
+            pool.query('DELETE FROM CALIFICACION WHERE comentario = ? LIMIT 1',[req.body.comentario]);
             res.json({message: 'comentario Eliminado'});    
         } catch (error) {
             res.status(500).json({ message: 'Error al eliminar el comentario' });
