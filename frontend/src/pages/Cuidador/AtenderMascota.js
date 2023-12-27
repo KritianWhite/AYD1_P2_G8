@@ -21,29 +21,27 @@ export default function AtenderMascota() {
 
 
   const handleDevolver = (index) => {
-
-    console.log(`ID de mascota ${index}:`, mascotas[index].id_mascota);
+    //console.log(`ID de mascota ${index}:`, mascotas[index].id_mascota);
 
     const idmascota2 = mascotas[index].id_mascota;
 
     // Aquí puedes hacer una llamada a la API para guardar la opción seleccionada
     const user = localStorage.getItem("correo").replace(/"/g, "");
-    fetch(`http://localhost:4000/mascota/actulizar_estado/${user}/${idmascota2}`, {
-      method: "POST",
+    fetch(`http://localhost:4000/mascota/devolver/${idmascota2}`, {
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        estado: "Devuelto",
-      }),
+      body: null,
     })
       .then((res) => res.json())
       .catch((err) => {
         console.log("Error:", err);
       })
       .then((response) => {
-        Swal.fire({ icon: "success", title: "¡Estado actualizado!", text: "El estado de la mascota ha sido actualizado." });
-        window.location.reload();
+        console.log("Respuesta de mascotas:", response);
+        Swal.fire({ icon: "success", title: "Mascota Devuelta !", text: "La mascota ha sido devuelta" });
+        //window.location.reload();
       });
   };
 
