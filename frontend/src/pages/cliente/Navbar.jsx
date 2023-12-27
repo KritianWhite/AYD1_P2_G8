@@ -163,8 +163,8 @@ export default function Navbar() {
                       </a>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="#">
-                        Action 2
+                      <a class="dropdown-item" href="/reviews">
+                        Reseñas de plataforma
                       </a>
                     </li>
                     <li>
