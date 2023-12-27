@@ -5,6 +5,7 @@ import ReviewsList from "./Components/ReviewList";
 import Navbar from "./Navbar.jsx";
 
 import "./Styles/Reviews.css";
+import "./Styles/Rating.css";
 
 export default function Reviews() {
 
