@@ -24,7 +24,10 @@ export default function Navbar() {
         focusConfirm: false,
         allowOutsideClick: false, // Evita que el usuario haga clic fuera del formulario para cerrar la alerta
         allowEscapeKey: true, // Permite que el usuario cierre la alerta con la tecla Esc
+
         preConfirm: async () => {
+
+
           return {
             nombre: document.getElementById("swal-nombre").value,
             edad: document.getElementById("swal-edad").value,
@@ -138,8 +141,8 @@ export default function Navbar() {
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="">
-                    Opcion 2
+                  <a class="nav-link active" aria-current="page" href="/tienda">
+                    Tienda
                   </a>
                 </li>
                 
@@ -160,8 +163,8 @@ export default function Navbar() {
                       </a>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="#">
-                        Action 2
+                      <a class="dropdown-item" href="/reviews">
+                        Reseñas de plataforma
                       </a>
                     </li>
                     <li>
