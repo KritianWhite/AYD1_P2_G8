@@ -16,7 +16,7 @@ export default function SeleccionarMascota() {
         method: "GET",
       });
       const data = await response.json();
-      //console.log("Respuesta de mascotas:", data);
+      console.log("Respuesta de mascotas:", data);
       setMascotas(data || []);
     } catch (err) {
       console.log("Error:", err);
@@ -38,6 +38,7 @@ export default function SeleccionarMascota() {
       });
       
       const data = await response.json();
+      Window.location.reload();
       if (response.ok) {
         Swal.fire({
           icon: "success",
@@ -81,7 +82,7 @@ export default function SeleccionarMascota() {
           console.log("Error:", err);
         })
         .then((response) => {
-          console.log("Respuesta de cantidad de mascotas:", response);
+          //console.log("Respuesta de cantidad de mascotas:", response);
          setCantidadMascotas(response.cantidad_mascotas);
         });
       getLibros();
