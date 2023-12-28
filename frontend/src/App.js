@@ -11,6 +11,10 @@ import MisMascotas from "./pages/cliente/MisMascotas.jsx";
 import Tienda from "./pages/cliente/Tienda.jsx";
 import Reviews from "./pages/cliente/Reviews.jsx";
 
+
+import ReviewsCuidador from "./pages/Cuidador/ReviewsCuidador.js";
+import TiendaCuidador from "./pages/Cuidador/TiendaCuidador.js";
+
 import './App.css';
 
 function App() {
@@ -28,6 +32,8 @@ function App() {
         <Route path="/mismascotas" element={<MisMascotas/>}/>
         <Route path="/tienda" element={<Tienda/>}/>
         <Route path="/reviews" element={<Reviews/>}/>
+        <Route path="/tiendacuidador" element={<TiendaCuidador/>}/>
+        <Route path="/reviewscuidador" element={<ReviewsCuidador/>}/>
       </Routes>
     </Router>
 

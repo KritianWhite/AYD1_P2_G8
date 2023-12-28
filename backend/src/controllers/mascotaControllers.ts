@@ -12,7 +12,7 @@ class MascotaController{
                 if (results && results.length > 0) {
                     res.json(results);
                 } else {
-                    res.json({message: "No se encontraron mascotas"}); // Enviar un JSON vacío 
+                    res.json({message: "No se encontraron mascotas"}); 
                 }
             });
         } catch (error) {
@@ -166,11 +166,12 @@ class MascotaController{
     public async DevolverMascota(req: Request, res: Response): Promise<void> {
         try {
             const id_mascota  = corregirFormato(req.params.id_mascota);
-            pool.query('SELECT * FROM proyecto2.HOSPEDAR WHERE CURDATE() > fecha_devolucion and id_mascota = ?',[id_mascota],(error, results) => {
+            pool.query('SELECT * FROM HOSPEDAR WHERE id_mascota = ?',[id_mascota],(error, results) => {
                 if (results && results.length>0) {
                     results[0].estado="Listo para recoger"
                     console.log(results[0])
                     res.json(results[0]);    
+                    pool.query('DELETE FROM ATENCION WHERE id_mascota = ? LIMIT 1',[id_mascota]);
                 }else{
                     res.json({message: "Aun no se puede devolver la mascota"});    
                 }
