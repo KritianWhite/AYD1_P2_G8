@@ -21,7 +21,7 @@ export default function AtenderMascota() {
 
 
   const handleDevolver = (index) => {
-    //console.log(`ID de mascota ${index}:`, mascotas[index].id_mascota);
+    console.log(`ID de mascota ${index}:`, mascotas[index].id_mascota);
 
     const idmascota2 = mascotas[index].id_mascota;
 

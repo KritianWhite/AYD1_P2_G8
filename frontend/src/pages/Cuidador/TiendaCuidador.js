@@ -290,9 +290,12 @@ export default function TiendaCuidador() {
       <NavbarCuidador />
 
       <div className="container">
-      <button style={{ cursor: 'pointer' }} onClick={handleCrearPerfil}>
+        <div>
+        <button style={{ cursor: 'pointer' }} onClick={handleCrearPerfil}>
   Crear nuevo producto
 </button>
+        </div>
+
         {mascotas.map((mascota, index) => (
           <div key={index} className="card-mislibros">
             <img src="https://img2.wallspic.com/previews/2/9/0/4/6/164092/164092-samsung_galaxy-samsung-smartphone-water-liquid-x750.jpg" alt="Mascota" />
