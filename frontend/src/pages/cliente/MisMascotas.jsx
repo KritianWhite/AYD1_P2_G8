@@ -6,6 +6,8 @@ import Navbar from "./Navbar.jsx";
 import "./Styles/MisMascotas.css";
 
 export default function MisMascotas() {
+  const [showRecogerButton, setShowRecogerButton] = useState(true);
+
   const [mascotas, setMascotas] = useState([
     {
       id_mascota: 1,
@@ -93,6 +95,28 @@ export default function MisMascotas() {
       });
   };
 
+  const handleRecoger = (nombre) => {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 3500,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.onmouseenter = Swal.stopTimer;
+        toast.onmouseleave = Swal.resumeTimer;
+      },
+    });
+
+    Toast.fire({
+      icon: "success",
+      title: "¡Tu mascota ha sido recogida!",
+    });
+
+    // Ocultar el botón de recoger
+    setShowRecogerButton(false);
+  };
+
   useEffect(() => {
     if (localStorage.getItem("correo") === null) {
       window.location.href = "/";
@@ -127,11 +151,24 @@ export default function MisMascotas() {
             <h6>{mascota.comentario}</h6>
             <ul className="social">
               <li>
-                <a href="#" onClick={(e) => handleHospedar(mascota.id_mascota)}>
+                <a href="#" onClick={(e) => handleHospedar(mascota.nombre)}>
                   <i class="fas fa-house"></i>
                 </a>
               </li>
+              <li>
+                <a>
+                  <i>Estado: {mascota.estado_mascota}</i>
+                </a>
+              </li>
             </ul>
+            {mascota.estado_mascota === "listo para recoger" && showRecogerButton && (
+              <button
+                class="btn-sucess"
+                onClick={(e) => handleRecoger(mascota.id_mascota)}
+              >
+                Recoger mascota
+              </button>
+            )}
           </div>
         ))}
 
