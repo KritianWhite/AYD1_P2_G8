@@ -1,0 +1,63 @@
+name: test_ci
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+     
+        list-files-back:
+          runs-on: ubuntu-22.04
+          steps:
+            - uses: actions/checkout@v2
+            - name: Listar archivos backend
+              run: cd backend/ && ls -l
+      
+        instalar-dependencias-back:
+          runs-on: ubuntu-22.04
+          steps:
+            - uses: actions/checkout@v2
+            - name: Instalar dependencias backend
+              run: cd backend/ && npm ci
+      
+        list-files-front:
+          runs-on: ubuntu-22.04
+          steps:
+            - uses: actions/checkout@v2
+            - name: Listar archivos frontend
+              run: cd frontend/ && ls -l
+      
+        build-front:
+          runs-on: ubuntu-22.04
+      
+          steps:
+            - name: Checkout code
+              uses: actions/checkout@v2
+      
+            - name: Set up Node.js
+              uses: actions/setup-node@v2
+              with:
+                node-version: '20.10.0'
+      
+            - name: Clear npm cache
+              run: npm cache clean --force
+      
+            - name: Remove existing node_modules
+              run: rm -rf frontend/node_modules
+      
+            - name: Install dependencies
+              run: |
+                cd frontend/
+                npm install
+      
+            - name: Build
+              run: |
+                cd frontend/
+                npm run build
+      
+            - name: Upload artifact
+              uses: actions/upload-artifact@v2
+              with:
+                name: build
+                path: frontend/build
